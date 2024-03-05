@@ -1,0 +1,40 @@
+@font-face {
+  font-family: "vazir";
+  src: url("../assets/fonts/vazir/Vazir-Light.ttf") ,
+    url("../assets/fonts/vazir/Vazir-Medium.ttf") ,
+    url("../assets/fonts/vazir/Vazir-Thin.ttf") ,
+    url("../assets/fonts/vazir/Vazir-Bold.ttf"),
+    url("../assets/fonts/vazir/Vazir.ttf") ,
+    url("../assets/fonts/vazir/Vazir-Light.woff2") format('woff2'),
+    url("../assets/fonts/vazir/Vazir-Medium.woff2") format('woff2'), 
+    url("../assets/fonts/vazir/Vazir-Thin.woff2") format('woff2'),
+    url("../assets/fonts/vazir/Vazir-Bold.woff") format('woff2'),
+    url("../assets/fonts/vazir/Vazir.woff2") format('woff2');
+
+
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+
+  font-family: "vazir", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+  direction: rtl;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* QRCodeReader.css */
+
+* {
+  font-family: "vazir";
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

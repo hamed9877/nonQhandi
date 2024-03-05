@@ -1,95 +1,227 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import { PageHeader } from "@/components/PageHeader";
+import { Card } from "@/components/card/Card";
+import useLocalStorage from "@/hooks/useLocal";
+import { UserData } from "@/interface/Data";
+import { Color } from "@/styles/global/Color";
+import { usePathname } from "next/navigation";
+import styled from "styled-components";
+import "../styles/globals.css";
+import Login from "./login/page";
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+const firstData: UserData = {
+  user: [
+    {
+      role: "Expert",
+      phone: "09183152961",
+      name: "فرهاد",
+      family: "فرهادی",
+      gen: "man",
+      idCode: "4040298763",
+      date: "1350/02/13",
+      email: "reza@gamil.com",
+      city: "همدان",
+    },
+    {
+      role: "Admin",
+      phone: "09185005315",
+      name: "ایمان",
+      family: "رضایی",
+      gen: "man",
+      idCode: "4042298763",
+      date: "1390/02/13",
+      email: "imanrezs@gamil.com",
+      city: "همدان",
+    },
+  ],
+  qrc: [
+    {
+      comments: [
+        { name: "ایمان رضایی", comment: "خیلی خوش گذشت خیلی دوست دارم" },
+        { name: "ds", comment: "asd", src: "/images/profile.jpeg" },
+        { name: "sdd", comment: "dasd", src: "/images/profile.jpeg" },
+        { name: "dsa", comment: "dasd", src: "/images/profile.jpeg" },
+      ],
+      id: "1",
+      org: "محیط زیست",
+      title: "دهکده توریستی گنجنامه",
+      subject: "میراث فرهنگی و گردشگر",
+      address:
+        " استان همدان، شهر همدان، میدان عباس آباد، خیابان گنجنامه، ضلع شرقی میدان گنجنامه",
+      tag: "فرهنگی",
+    },
+    {
+      id: "2",
+      org: "محیط زیست",
+      title: "دهکده توریستی گنجنامه",
+      subject: "میراث فرهنگی و گردشگر",
+      address:
+        " استان همدان، شهر همدان، میدان عباس آباد، خیابان گنجنامه، ضلع شرقی میدان گنجنامه",
+      comments: [
+        { name: "ایمان رضایی", comment: "خیلی خوش گذشت خیلی دوست دارم" },
+      ],
+      tag: "فرهنگی",
+    },
+  ],
+  dashboard: [
+    [
+      {
+        name: "غار علیصدر",
+        request: "15",
+        amt: "2400",
+      },
+      {
+        name: "برج قربان",
+        request: "32",
+        amt: "2400",
+      },
+      {
+        name: "گنبد علویان",
+        request: "23",
+        amt: "2400",
+      },
+      {
+        name: "دشت میشان",
+        request: "42",
+        amt: "2400",
+      },
+      {
+        name: "هگمتانه",
+        request: "12",
+        amt: "2400",
+      },
+      {
+        name: "سراب گیان",
+        request: "73",
+        amt: "2400",
+      },
+      {
+        name: "گنج نامه",
+        request: "45",
+        amt: "2400",
+      },
+      {
+        name: "باباطاهره",
+        request: "34",
+        amt: "2400",
+      },
+    ],
+    [
+      {
+        name: "فرودین",
+        request: "15",
+        amt: "2400",
+      },
+      {
+        name: "اردیبهشت",
+        request: "32",
+        amt: "2400",
+      },
+      {
+        name: "خرداد",
+        request: "23",
+        amt: "2400",
+      },
+      {
+        name: "تیر",
+        request: "42",
+        amt: "2400",
+      },
+      {
+        name: "مرداد",
+        request: "12",
+        amt: "2400",
+      },
+      {
+        name: "شهریور",
+        request: "73",
+        amt: "2400",
+      },
+      {
+        name: "مهر",
+        request: "45",
+        amt: "2400",
+      },
+      {
+        name: "آبان",
+        request: "34",
+        amt: "2400",
+      },
+      {
+        name: "آذر",
+        request: "73",
+        amt: "2400",
+      },
+      {
+        name: "دی",
+        request: "45",
+        amt: "2400",
+      },
+      {
+        name: "بهمن",
+        request: "34",
+        amt: "2400",
+      },
+      {
+        name: "اسفند",
+        request: "34",
+        amt: "2400",
+      },
+    ],
+  ],
+};
+export default function Home({}) {
+  const pathname = usePathname();
+  const [userData, setUserData] = useLocalStorage("data", firstData);
+
+  return pathname === "/login" ? (
+    <Login />
+  ) : (
+    <>
+      <PageHeader title="کدهای QRC" buttonLabel="افزودن کد" />
+      <Wrapper>
+        {userData &&
+          userData.qrc?.map((i, index) => (
+            <Card
+              key={index}
+              onClick={() => {
+                setUserData(
+                  "data.qrc",
+                  userData.qrc.filter(({ id: _id }) => _id != i.id)
+                );
+              }}
+              Idata={{
+                id: i.id,
+                address: i.address,
+                subject: i.subject,
+                title: i.title,
+              }}
+              index={0}
             />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          ))}
+      </Wrapper>
+    </>
   );
 }
+
+const H3 = styled.h3`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: ${Color.grayDark};
+  border-bottom: 3px solid ${Color.gold};
+  padding-left: 1rem;
+  padding-bottom: 0.25rem;
+  svg {
+    transform: rotateY(180deg);
+    color: ${Color.gold};
+  }
+`;
+const Wrapper = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  row-gap: 1rem;
+  padding: 0.25rem;
+`;
