@@ -1,5 +1,4 @@
 import React from "react";
-import { IoMenu } from "react-icons/io5";
 import styled from "styled-components";
 import { Color } from "../../styles/global/Color";
 import { Shadow } from "../../styles/global/Shadow";
@@ -37,7 +36,6 @@ export const GuestNav: React.FC<INav> = ({ active }) => {
         >
           <a href="/login">ورود</a>
         </Button>
-        <IoMenu />
       </ButtonWrapper>
     </Navbar>
   );
@@ -87,12 +85,12 @@ const ButtonWrapper = styled.div`
     font-size: 32px;
     color: ${Color.Primary};
   }
-  @media screen and (max-width: 640px) {
+  /* @media screen and (max-width: 640px) {
     button {
       display: none;
     }
     svg {
       display: block;
     }
-  }
+  } */
 `;
