@@ -15,7 +15,7 @@ const useLocalStorage = (key: string, initialValue?: UserData) => {
       setValue(JSON.parse(localStorage.getItem(key)));
     if (key && initialValue && !localStorage.getItem(key))
       localStorage.setItem(key, JSON.stringify(value));
-  }, [key, value]);
+  }, []);
 
   const setLocalStorageValue = (nestedKeyPath: string, newValue: any) => {
     setValue((prevValue) => {

@@ -1,7 +1,6 @@
 "use client";
 import { PageHeader } from "@/components/PageHeader";
 import { Card } from "@/components/card/Card";
-import useLocalStorage from "@/hooks/useLocal";
 import { UserData } from "@/interface/Data";
 import { Color } from "@/styles/global/Color";
 import { usePathname } from "next/navigation";
@@ -172,7 +171,8 @@ export const firstData: UserData = {
 };
 export default function Home({}) {
   const pathname = usePathname();
-  const [userData, setUserData] = useLocalStorage("data", firstData);
+  // const [userData, setUserData] = useLocalStorage("data", firstData);
+  const userData = null;
 
   return pathname === "/login" ? (
     <Login />

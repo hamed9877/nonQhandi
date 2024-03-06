@@ -7,7 +7,6 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import Dropzone from "react-dropzone";
 import { useForm } from "react-hook-form";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import TextPath from "react-leaflet-textpath";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import MemoDelete from "../../assets/icons/Delete";
@@ -143,15 +142,6 @@ const AddQrcCard = () => {
             />
 
             <DraggableMarker />
-            <TextPath
-              positions={[
-                [35.8026003, 51.4194146],
-                [35.802, 51.4194],
-              ]}
-              text="Polyline text"
-              center
-              offset={10}
-            />
           </MapContainer>
         </Contanter>
       </CreatCode>
