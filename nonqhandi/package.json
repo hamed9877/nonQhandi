@@ -12,12 +12,21 @@
     "leaflet": "^1.9.4",
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "leaflet-routing-machine": "^3.2.12",
+    "chart.js": "^4.4.1",
     "next": "14.1.2",
+    "qrcode.react": "^3.1.0",
     "react": "^18",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18",
     "react-leaflet": "^4.2.1",
     "react-qr-reader": "2.2.1",
-    "styled-components": "^6.1.8"
+    "react-dropzone": "^14.2.3",
+    "react-hook-form": "^7.51.0",
+    "react-icons": "^5.0.1",
+    "react-slideshow-image": "^4.3.0",
+    "recharts": "^2.10.4",
+    "styled-components": "^6.1.8",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.8",
@@ -25,6 +34,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/react-qr-reader": "^2.1.7",
+    "@types/uuid": "^9.0.8",
     "eslint": "^8",
     "eslint-config-next": "14.1.2",
     "typescript": "^5"

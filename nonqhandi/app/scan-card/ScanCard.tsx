@@ -7,7 +7,7 @@ import QrReader from "react-qr-reader";
 const QRCodeReader = () => {
   const [result, setResult] = useState("No result");
   const router = useRouter();
-  const handleScan = (data) => {
+  const handleScan = (data: any) => {
     if (data) {
       setResult(data);
     }
@@ -16,7 +16,7 @@ const QRCodeReader = () => {
     }
   };
 
-  const handleError = (err) => {
+  const handleError = (err: any) => {
     console.error(err);
   };
   const [isScan, setIsScan] = useState(false);
@@ -34,9 +34,8 @@ const QRCodeReader = () => {
       <div>
         {isScan ? (
           <QrReader
-            scanDelay={300}
-            constraints={{ facingMode: "user" }}
-            containerStyle={{ width: "25rem" }}
+            delay={300}
+            facingMode="environment"
             onError={handleError}
             onScan={handleScan}
           />
