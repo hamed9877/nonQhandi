@@ -1,12 +1,18 @@
 import useLocalStorage from "@/hooks/useLocal";
+import "leaflet-defaulticon-compatibility";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
+import "leaflet/dist/leaflet.css";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import Dropzone from "react-dropzone";
 import { useForm } from "react-hook-form";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import TextPath from "react-leaflet-textpath";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import MemoDelete from "../../assets/icons/Delete";
 import { Color } from "../../styles/global/Color";
+
 import { Button } from "../buttons/Button";
 import { Img } from "../divitions/Img";
 import { Input } from "../inputs/Input";
@@ -27,25 +33,81 @@ const AddQrcCard = () => {
   //   // });
 
   // };
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
+
+  const [position, setPosition] = useState({
+    lat: 35.8026003,
+    lng: 51.4194146,
+  });
+
+  function DraggableMarker() {
+    const [draggable, setDraggable] = useState(false);
+
+    const markerRef = useRef(null);
+    const eventHandlers = useMemo(
+      () => ({
+        async dragend() {
+          const marker = markerRef.current;
+          if (marker != null) {
+            setPosition(marker.getLatLng());
+            const { lat, lng } = position;
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=fa`
+            );
+            const data = await response.json();
+            const address = data.display_name;
+            setValue("address", address); // This will log the address to the console
+          }
+        },
+      }),
+      []
+    );
+    const toggleDraggable = useCallback(() => {
+      setDraggable((d) => !d);
+    }, []);
+
+    return (
+      <Marker
+        draggable={draggable}
+        eventHandlers={eventHandlers}
+        position={position}
+        ref={markerRef}
+      >
+        <Popup minWidth={90}>
+          <span onClick={toggleDraggable}>
+            {draggable
+              ? "Marker is draggable"
+              : "Click here to make marker draggable"}
+          </span>
+        </Popup>
+      </Marker>
+    );
+  }
   const DropFile = (acceptedFiles: any) => {
     updateImg(acceptedFiles);
     console.log(acceptedFiles);
   };
   const router = useRouter();
-
   const [modal, setModal] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
   const [userData, setUserData] = useLocalStorage("data");
   return (
     <form
+      style={{ flex: 1, padding: "0 1rem" }}
       onSubmit={handleSubmit((data) => {
-        data = { ...data, id: uuidv4(), comments: [] };
+        data = {
+          ...data,
+          id: uuidv4(),
+          comments: [],
+          location: position,
+        };
         const newData = [...userData.qrc, data];
+
         if (data.title) {
           setUserData("data.qrc", newData);
           router.push("/");
@@ -66,12 +128,32 @@ const AddQrcCard = () => {
           <InputCode {...register("organ")} type="text" placeholder="مرکز" />
           <InputCode {...register("address")} type="text" placeholder="آدرس" />
         </FormWrapper>
-        <Img
-          width="45%"
-          height="12rem"
-          border={`1px solid ${Color.secondary}`}
-          src="./images/map.jpeg"
-        />
+        <Contanter>
+          <MapContainer
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+            center={[35.8026003, 51.4194146]}
+            zoom={15}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+
+            <DraggableMarker />
+            <TextPath
+              positions={[
+                [35.8026003, 51.4194146],
+                [35.802, 51.4194],
+              ]}
+              text="Polyline text"
+              center
+              offset={10}
+            />
+          </MapContainer>
+        </Contanter>
       </CreatCode>
       <MainContent>
         <TextInput>
@@ -151,10 +233,17 @@ const AddQrcCard = () => {
 
 export default AddQrcCard;
 
+const Contanter = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 45%;
+  height: 12rem;
+`;
 const CreatCode = styled.div`
   display: flex;
 
-  background-color: ${Color.background};
+  /* background-color: ${Color.background}; */
 
   width: 100%;
 

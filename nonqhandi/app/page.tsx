@@ -184,6 +184,7 @@ export default function Home({}) {
           userData.qrc?.map((i, index) => (
             <Card
               key={index}
+              barcode={i.id}
               onClick={() => {
                 setUserData(
                   "data.qrc",

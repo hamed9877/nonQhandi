@@ -1,6 +1,9 @@
 "use client";
+import { LanpageCardRecom } from "@/components/card/LanpageCardRecom";
+import { itemMaps } from "@/function/fackData/fackData";
 import useLocalStorage from "@/hooks/useLocal";
 import { LayoutSize } from "@/interface/LayoutSize";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -90,6 +93,11 @@ const dataFake = [
     r: "کافه گالری شب های روشن",
   },
 ];
+
+const Map = dynamic(() => import("./MapTest"), {
+  ssr: false, // Disable server-side rendering
+  // loading: () => <p>A map is loading</p>,
+});
 const Landing = () => {
   const {
     register,
@@ -98,6 +106,7 @@ const Landing = () => {
   } = useForm();
   const [loader, setLoader] = useState(false);
   const [data, setData] = useState();
+  const [tsp, setTsp] = useState(0);
   const router = useRouter();
   const [userData, setUserData] = useLocalStorage("data", firstData);
   return (
@@ -164,6 +173,35 @@ const Landing = () => {
           </Link>
         </ContentLan>
 
+        <Sujest>
+          <HeaderLanPage>پیشنهاد ما</HeaderLanPage>
+          <HeaderItem>
+            ما به شما کمک می کنیم تا سفر جذابی داشته باشید
+          </HeaderItem>
+          <CardContainer index={0}>
+            <Contain>
+              <LeftR>
+                {itemMaps.map((t, index) => {
+                  const temp = t.map((val, index) => val.name);
+
+                  return (
+                    <LanpageCardRecom
+                      onClick={() => setTsp(index)}
+                      imageSrc={t[Math.floor(Math.random() * 4)].image}
+                      text={[
+                        [temp[0], temp[1], temp[2]],
+                        [temp[3], temp[4]],
+                      ]}
+                    />
+                  );
+                })}
+              </LeftR>
+              <RightR style={{ height: "20rem", width: "100%" }}>
+                <Map itemMap={itemMaps[tsp]} />
+              </RightR>
+            </Contain>
+          </CardContainer>
+        </Sujest>
         <Sujest>
           <HeaderLanPage>پیشنهاد ما</HeaderLanPage>
           <HeaderItem>
@@ -398,6 +436,23 @@ const HeaderLanPage = styled.h1`
 
 const HeaderItem = styled.h4`
   padding: 1rem;
+`;
+const Contain = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  @media screen and (max-width: 640px) {
+    flex-direction: column;
+  }
+`;
+const RightR = styled.div`
+  flex: 2;
+  height: 20rem;
+`;
+const LeftR = styled.div`
+  flex: 1;
+  height: 20rem;
+  padding: 0 1rem;
 `;
 const HeaderNews = styled.h2`
   padding: 1rem;
