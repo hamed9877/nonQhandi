@@ -7,16 +7,19 @@ import { ClientNavItem } from "@/data/ClientNavItem";
 import { usePathname } from "next/navigation";
 
 import { QrcFillter } from "@/components/fillters/QrcFilter";
+import { LayoutSize } from "@/interface/LayoutSize";
 import { Path } from "@/routes/Path";
 import "../styles/globals.css";
 
 export default function RootLayout({
   children,
+  pageProps,
 }: {
   children: React.ReactNode;
+  pageProps: LayoutSize;
 }) {
+  console.log("pageProps", pageProps);
   const pathname = usePathname();
-  console.log("pathname", pathname);
   return (
     <html lang="en">
       <body>
@@ -40,6 +43,8 @@ export default function RootLayout({
               !pathname.includes(Path.dashboard) &&
               QrcFillter
             }
+            padding={pathname.includes("landing") ? "0" : "unset"}
+            {...pageProps}
           >
             {children}
           </Layout>

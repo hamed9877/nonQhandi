@@ -12,6 +12,7 @@ const QRCodeReader = () => {
   const handleScan = (data) => {
     if (data) {
       setResult(data);
+      router.push("/");
     }
     if (result !== "No result") {
       router.push("/landing/detail");
@@ -36,7 +37,7 @@ const QRCodeReader = () => {
       <ScanWrapper>
         {isScan ? (
           <StyledQrc
-            facingMode="user"
+            facingMode="environment"
             delay={300}
             onError={handleError}
             onScan={handleScan}

@@ -1,4 +1,7 @@
-import { useRouter } from "next/router";
+"use client";
+import { LayoutSize } from "@/interface/LayoutSize";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaMosque } from "react-icons/fa6";
@@ -99,7 +102,7 @@ const Landing = () => {
       <SliderWrapper>
         <Slide autoplay duration={1000} arrows={false}>
           {slideImages.map((slideImage, index) => (
-            <div>
+            <div key={index}>
               <div
                 style={{
                   ...divStyle,
@@ -126,38 +129,36 @@ const Landing = () => {
         <HeaderLanPage>به همدان خوش آمدید</HeaderLanPage>
         <HeaderItem>ما به شما کمک می کنیم تا سفر جذابی داشته باشید</HeaderItem>
         <ContentLan>
-          <LanPageCard
-            onClick={() => router.push("guest/detail")}
-            imageSrc={"/images/abas.webp"}
-            text="تپه عباس آباد"
-          />
-          <LanPageCard
-            onClick={() => router.push("guest/detail")}
-            imageSrc={"/images/cave.jpg"}
-            text="غار علی صدر"
-          />
-          <LanPageCard
-            onClick={() => router.push("guest/detail")}
-            imageSrc={"/images/abshargangnameh.jpg"}
-            text="آبشاز گنجنامه"
-          />
-          <LanPageCard
-            onClick={() => router.push("guest/detail")}
-            imageSrc={"/images/babather.jpg"}
-            text="آرامگاه باباطاهر"
-          />
-          <LanPageCard
-            onClick={() => router.push("guest/detail")}
-            imageSrc={"/images/rangincamn.jpeg"}
-            text="شهربازی رنگین کمان"
-          />
-          <LanPageCard
-            onClick={() => {
-              router.push("guest/detail");
-            }}
-            imageSrc={"/images/shirsangi.jpeg"}
-            text="مجسمه شیرسنگی"
-          />
+          <Link href={"landing/detail"}>
+            <LanPageCard imageSrc={"/images/abas.webp"} text="تپه عباس آباد" />
+          </Link>
+          <Link href={"landing/detail"}>
+            <LanPageCard imageSrc={"/images/cave.jpg"} text="غار علی صدر" />
+          </Link>
+          <Link href={{ pathname: "landing/detail", query: { id: "2" } }}>
+            <LanPageCard
+              imageSrc={"/images/abshargangnameh.jpg"}
+              text="آبشار گنجنامه"
+            />
+          </Link>
+          <Link href={"guest/detail"}>
+            <LanPageCard
+              imageSrc={"/images/babather.jpg"}
+              text="آرامگاه باباطاهر"
+            />
+          </Link>
+          <Link href={"guest/detail"}>
+            <LanPageCard
+              imageSrc={"/images/rangincamn.jpeg"}
+              text="شهربازی رنگین کمان"
+            />
+          </Link>
+          <Link href={"guest/detail"}>
+            <LanPageCard
+              imageSrc={"/images/shirsangi.jpeg"}
+              text="مجسمه شیرسنگی"
+            />
+          </Link>
         </ContentLan>
 
         <Sujest>
@@ -260,6 +261,21 @@ const Landing = () => {
     </Wrapper>
   );
 };
+
+Landing.getInitialProps = async () => {
+  const data: LayoutSize = {
+    FilterBar: false,
+    isBackVisible: false,
+    padding: "0",
+  };
+
+  return {
+    props: {
+      ...data,
+    },
+  };
+};
+
 export default Landing;
 
 const Wrapper = styled.div`
@@ -356,6 +372,7 @@ const NewsContent = styled(CardContainer)`
 
   padding: 1rem;
   @media screen and (max-width: 640px) {
+    flex-direction: column;
   }
 `;
 const HeaderLanPage = styled.h1`
