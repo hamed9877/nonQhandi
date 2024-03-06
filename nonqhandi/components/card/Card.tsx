@@ -1,4 +1,5 @@
 import Link from "next/link";
+import QRCodeReact from "qrcode.react";
 import React from "react";
 import styled from "styled-components";
 import { StatusItem } from "../../data/fake/StatusItem";
@@ -12,12 +13,12 @@ import { CardDetail } from "./CardDetail";
 import CardStatus from "./CardStatus";
 import { CardWarrper } from "./CardWarrper";
 import { Detail, IDetail } from "./Detail";
-
 export const Card: React.FC<{
   onClick?: () => void;
   index: number;
   Idata: IDetail;
-}> = ({ index, Idata, onClick }) => {
+  barcode: string;
+}> = ({ index, Idata, onClick, barcode }) => {
   return (
     <CardContainer index={index} height="auto">
       <ToggleBtn />
@@ -34,6 +35,12 @@ export const Card: React.FC<{
       <CardWarrper>
         <CardDetail>
           <Detail data={Idata} />
+          <Qr>
+            <QRCodeReact
+              style={{ width: "100%", height: "100%" }}
+              value={"http://localhost:3000/landing/detail?id=" + barcode}
+            />
+          </Qr>
         </CardDetail>
       </CardWarrper>
       <CardAction>
@@ -55,4 +62,8 @@ export const Card: React.FC<{
 const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
+`;
+const Qr = styled.div`
+  width: 5rem;
+  height: 5rem;
 `;

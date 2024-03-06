@@ -17,7 +17,7 @@ interface Iprops {
 }
 export const Detail: React.FC<Iprops> = ({ data }) => {
   return (
-    <div>
+    <div style={{ flex: 1 }}>
       <H4>{data.title}</H4>
       <Details>
         <FaTags />
