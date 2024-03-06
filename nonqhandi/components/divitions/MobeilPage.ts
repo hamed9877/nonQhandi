@@ -9,7 +9,7 @@ export const Page = styled.section`
   height: 100%;
   overflow: hidden;
   padding: 1rem;
-  & > :first-child div {
+  & a {
     margin-bottom: 4rem;
     margin-top: 6rem;
   }
@@ -24,7 +24,7 @@ export const Page = styled.section`
     padding: 0;
 
     align-items: flex-start;
-    & > :first-child div {
+    & a {
       display: none;
     }
   }

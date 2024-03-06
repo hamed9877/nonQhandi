@@ -9,6 +9,8 @@ import { usePathname } from "next/navigation";
 import { QrcFillter } from "@/components/fillters/QrcFilter";
 import { LayoutSize } from "@/interface/LayoutSize";
 import { Path } from "@/routes/Path";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import "../styles/globals.css";
 
 export default function RootLayout({
@@ -18,7 +20,29 @@ export default function RootLayout({
   children: React.ReactNode;
   pageProps: LayoutSize;
 }) {
-  console.log("pageProps", pageProps);
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const handleRouteChangeStart = () => {
+      setLoading(true);
+    };
+
+    const handleRouteChangeComplete = () => {
+      setLoading(false);
+      window.scrollTo({ top: 0, behavior: "instant" });
+    };
+
+    router.events.on("routeChangeStart", handleRouteChangeStart);
+    router.events.on("routeChangeComplete", handleRouteChangeComplete);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChangeStart);
+      router.events.off("routeChangeComplete", handleRouteChangeComplete);
+    };
+  }, [router.events]);
+
+  console.log("pageProps", loading);
   const pathname = usePathname();
   return (
     <html lang="en">
@@ -43,7 +67,7 @@ export default function RootLayout({
               !pathname.includes(Path.dashboard) &&
               QrcFillter
             }
-            padding={pathname.includes("landing") ? "0" : "unset"}
+            padding={pathname.includes("landing") ? "0" : undefined}
             {...pageProps}
           >
             {children}
