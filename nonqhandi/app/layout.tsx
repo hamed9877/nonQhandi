@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { QrcFillter } from "@/components/fillters/QrcFilter";
 import { Path } from "@/routes/Path";
 import "../styles/globals.css";
+import StyledComponentsRegistry from "./registry";
 
 export default function RootLayout({
   children,
@@ -19,32 +20,34 @@ export default function RootLayout({
   console.log("pathname", pathname);
   return (
     <html lang="en">
-      <body>
-        {pathname === "/login" || pathname.includes("authy") ? (
-          <>{children}</>
-        ) : (
-          <Layout
-            NavBar={
-              pathname.includes("authy")
-                ? null
-                : pathname.includes("expert")
-                ? () => <AdminNav data={ClientNavItem} />
-                : pathname.includes("landing")
-                ? GuestNav
-                : () => <AdminNav data={navItems} />
-            }
-            FilterBar={
-              !pathname.includes("landing") &&
-              !pathname.includes("expert") &&
-              !pathname.includes("authy") &&
-              !pathname.includes(Path.dashboard) &&
-              QrcFillter
-            }
-          >
-            {children}
-          </Layout>
-        )}
-      </body>
+      <StyledComponentsRegistry>
+        <body>
+          {pathname === "/login" || pathname.includes("authy") ? (
+            <>{children}</>
+          ) : (
+            <Layout
+              NavBar={
+                pathname.includes("authy")
+                  ? null
+                  : pathname.includes("expert")
+                  ? () => <AdminNav data={ClientNavItem} />
+                  : pathname.includes("landing")
+                  ? GuestNav
+                  : () => <AdminNav data={navItems} />
+              }
+              FilterBar={
+                !pathname.includes("landing") &&
+                !pathname.includes("expert") &&
+                !pathname.includes("authy") &&
+                !pathname.includes(Path.dashboard) &&
+                QrcFillter
+              }
+            >
+              {children}
+            </Layout>
+          )}
+        </body>
+      </StyledComponentsRegistry>
     </html>
   );
 }
