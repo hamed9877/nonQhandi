@@ -6,9 +6,9 @@ interface IProps {
 export const LabelWrapper = styled.div<IProps>`
   display: flex;
   align-items: center;
-  padding: 8px 0;
+  padding: 0;
   font-size: 14px;
-  gap: 0.5rem;
+  gap: 0.25rem;
   svg {
     font-size: 24px;
   }

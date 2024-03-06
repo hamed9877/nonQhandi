@@ -1,4 +1,4 @@
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { MdOutlineQrCodeScanner } from "react-icons/md";
 import QrReader from "react-qr-reader";
@@ -22,8 +22,9 @@ const QRCodeReader = () => {
   const handleError = (err) => {
     console.error(err);
   };
-  const [isScan, setIsScan] = useState(false);
+  // const [isScan, setIsScan] = useState(false);
 
+  const isScan = useSearchParams().get("scan") === "true";
   return (
     <div
       style={{
@@ -47,7 +48,10 @@ const QRCodeReader = () => {
         )}
         <p>{result != "No result"}</p>
         <Button
-          onClick={() => setIsScan(!isScan)}
+          // onClick={() => setIsScan(!isScan)}
+          onClick={() =>
+            isScan ? router.push("/expert/scan") : router.push("?scan=true")
+          }
           bg={Color.secondary}
           style={{ width: "100%" }}
           radius=".5rem"

@@ -1,4 +1,5 @@
 "use client";
+import useLocalStorage from "@/hooks/useLocal";
 import { LayoutSize } from "@/interface/LayoutSize";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -15,6 +16,7 @@ import { CardContainer } from "../../components/card/CardContainer";
 import { LanPageCard } from "../../components/card/LanpageCard";
 import { Input } from "../../components/inputs/Input";
 import { Color } from "../../styles/global/Color";
+import { firstData } from "../page";
 
 const slideImages = [
   {
@@ -97,6 +99,7 @@ const Landing = () => {
   const [loader, setLoader] = useState(false);
   const [data, setData] = useState();
   const router = useRouter();
+  const [userData, setUserData] = useLocalStorage("data", firstData);
   return (
     <Wrapper>
       <SliderWrapper>

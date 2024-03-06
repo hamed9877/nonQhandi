@@ -1,12 +1,14 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import QrReader from "react-qr-reader";
 
 const QRCodeReader = () => {
   const [result, setResult] = useState("No result");
   const router = useRouter();
+  const isScan = useSearchParams().get("scan") === "true";
+
   const handleScan = (data: any) => {
     if (data) {
       setResult(data);
@@ -19,7 +21,7 @@ const QRCodeReader = () => {
   const handleError = (err: any) => {
     console.error(err);
   };
-  const [isScan, setIsScan] = useState(false);
+  // const [isScan, setIsScan] = useState(false);
 
   return (
     <div
@@ -43,7 +45,13 @@ const QRCodeReader = () => {
           <div>icon</div>
         )}
         <p>{result != "No result"}</p>
-        <button onClick={() => setIsScan(!isScan)} style={{ width: "100%" }}>
+        <button
+          // onClick={() => setIsScan(!isScan)}
+          onClick={() =>
+            isScan ? router.push("/expert/scan") : router.push("?scan=true")
+          }
+          style={{ width: "100%" }}
+        >
           {isScan ? "توقف اسکن" : "شروع اسکن"}
         </button>
       </div>

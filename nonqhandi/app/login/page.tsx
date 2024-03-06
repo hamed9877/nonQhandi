@@ -29,10 +29,10 @@ const Login: React.FC = () => {
         </P>
         <Form
           onSubmit={handleSubmit((data) => {
+            router.push(`/authy?phone=${data.phone}`);
             const user = JSON.parse(localStorage.getItem("data")).user.filter(
               (va) => va.phone == data.phone
             );
-            console.log(data.phone);
             user.length != 0
               ? router.push(`/authy?phone=${data.phone}`)
               : setError(true);

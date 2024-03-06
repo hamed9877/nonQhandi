@@ -3,7 +3,6 @@ import { MdDateRange } from "react-icons/md";
 import styled from "styled-components";
 import MemoQrCode from "../../assets/icons/sidebar/QrCode";
 import { Color } from "../../styles/global/Color";
-import DeleteBtn from "../buttons/DeleteBtn";
 import DetailBtn from "../buttons/DetailBtn";
 import { LabelWrapper } from "../divitions/LabelWarrper";
 import { P } from "../paragraphs/P";
@@ -28,9 +27,19 @@ export const CodeCard = () => {
           </LabelWrapper>
         </DetailWrapper>
       </DetailWrapper>
-      <QrDescription>توضیحات: وجود آشغال و تمیز نبودن محیط</QrDescription>
+      <QrDescription>
+        <b> توضیحات:</b>
+        <br />
+        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
+        از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و درصد
+        گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد...
+      </QrDescription>
+      <QrDescription>
+        <b>نظر کارشناس</b>:
+        <br />
+        درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد...
+      </QrDescription>
       <CardAction>
-        <DeleteBtn />
         <DetailBtn />
       </CardAction>
     </CardContainer>
@@ -44,16 +53,19 @@ const DetailWrapper = styled(CardWarrper)<IDetail>`
   flex-direction: ${({ direction }) => direction || "column"};
   align-items: flex-start;
 `;
-const QrDescription = styled.div`
+const QrDescription = styled.p`
   width: 100%;
-  height: 7rem;
+  /* height: 7rem; */
   font-size: 0.875rem;
-
   padding: 0.5rem;
+  text-align: start;
 
-  border: 1px solid ${Color.grayLight};
+  /* border: 1px solid ${Color.grayLight}; */
   border-left: none;
   border-right: none;
-  background-color: ${Color.secondary50};
-  color: ${Color.grayDark};
+  /* background-color: #f6f6f6; */
+  color: ${Color.gray50};
+  & > b {
+    color: ${Color.grayDark};
+  }
 `;

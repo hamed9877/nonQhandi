@@ -9,7 +9,7 @@ import styled from "styled-components";
 import "../styles/globals.css";
 import Login from "./login/page";
 
-const firstData: UserData = {
+export const firstData: UserData = {
   user: [
     {
       role: "Expert",

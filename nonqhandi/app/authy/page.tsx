@@ -33,12 +33,10 @@ const Authy: React.FC = () => {
         </P>
         <Form
           onSubmit={handleSubmit((data) => {
-            console.log(data);
             const user = JSON.parse(localStorage.getItem("data")).user.filter(
               (va) => va.phone == search.get("phone")
             );
             if (data.code == "1111" && user.length != 0) {
-              console.log(user[0].role);
               user[0].role == "Expert"
                 ? router.push("/expert")
                 : router.push("/dashboard");
