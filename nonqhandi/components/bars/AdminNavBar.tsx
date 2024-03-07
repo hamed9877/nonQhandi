@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import MemoLeftChervon from "../../assets/icons/LeftChervon";
@@ -12,7 +12,7 @@ import { WebNav } from "./WebNav";
 
 export const AdminNav: React.FC<{ data: any }> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   return (
     <WebNav isOpen={isOpen}>
       <LogoWrapper>
@@ -29,12 +29,15 @@ export const AdminNav: React.FC<{ data: any }> = ({ data }) => {
           const isActive = pathname === item.to;
           return (
             <StyledLi className={isActive && "active"} key={index}>
-              <Link href={item.to}>
-                <StyledA isOpen={isOpen} className={isActive && "active"}>
-                  <item.icon width="1.25rem" margin="0 0 0 .5rem" />
-                  <span>{item.text}</span>
-                </StyledA>
-              </Link>
+              <StyledA
+                as={Link}
+                href={item.to}
+                isOpen={isOpen}
+                className={isActive && "active"}
+              >
+                <item.icon width="1.25rem" margin="0 0 0 .5rem" />
+                <span>{item.text}</span>
+              </StyledA>
             </StyledLi>
           );
         })}

@@ -1,6 +1,8 @@
 "use client";
 import { PageHeader } from "@/components/PageHeader";
+import Skeleton from "@/components/Skeleton";
 import { Card } from "@/components/card/Card";
+import useLocalStorage from "@/hooks/useLocal";
 import { UserData } from "@/interface/Data";
 import { Color } from "@/styles/global/Color";
 import { usePathname } from "next/navigation";
@@ -171,8 +173,7 @@ export const firstData: UserData = {
 };
 export default function Home({}) {
   const pathname = usePathname();
-  // const [userData, setUserData] = useLocalStorage("data", firstData);
-  const userData = null;
+  const [userData, setUserData] = useLocalStorage("data", firstData);
 
   return pathname === "/login" ? (
     <Login />
@@ -180,7 +181,14 @@ export default function Home({}) {
     <>
       <PageHeader title="کدهای QRC" buttonLabel="افزودن کد" />
       <Wrapper>
-        {userData &&
+        {!userData.qrc?.length ? (
+          <>
+            <Skeleton width={"100%"} height={300} />
+            <Skeleton width={"100%"} height={300} />
+            <Skeleton width={"100%"} height={300} />
+            <Skeleton width={"100%"} height={300} />
+          </>
+        ) : (
           userData.qrc?.map((i, index) => (
             <Card
               key={index}
@@ -199,7 +207,8 @@ export default function Home({}) {
               }}
               index={0}
             />
-          ))}
+          ))
+        )}
       </Wrapper>
     </>
   );

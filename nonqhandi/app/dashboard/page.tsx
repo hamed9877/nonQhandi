@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import Skeleton from "@/components/Skeleton";
 import useLocalStorage from "@/hooks/useLocal";
 import {
   Area,
@@ -25,9 +26,12 @@ const Dashboard: React.FC = () => {
   const width = 1000;
   const height = 300;
 
-  const [{ dashboard }, _] = useLocalStorage("data");
+  const [data, _] = useLocalStorage("data");
+  const dashboard = data?.dashboard;
 
-  const renderLineChart = (
+  const renderLineChart = !dashboard?.length ? (
+    <Skeleton width={width} height={height} />
+  ) : (
     <AreaChart
       width={width}
       height={height}
@@ -47,7 +51,9 @@ const Dashboard: React.FC = () => {
     </AreaChart>
   );
 
-  const renderBar = (
+  const renderBar = !dashboard?.length ? (
+    <Skeleton width={width} height={height} />
+  ) : (
     <BarChart width={width} height={height} data={dashboard[1]}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" name="hamed" label="" />
@@ -60,21 +66,33 @@ const Dashboard: React.FC = () => {
   return (
     <Wrapper>
       {/* <Img width="auto" height="100%" src="./images/dev.jpg" /> */}
-      <ChartWrapper>
-        <Title>
-          بیشترین مکان‌های بازدید شده <span>(دوره یکساله - ۱۰ مورد بیشتر)</span>
-        </Title>
 
-        {renderLineChart}
-      </ChartWrapper>
-      <ChartWrapper>
-        <Title>
-          بیشترین مکان‌های بازدید سراب گیان
-          <span>(دوره یکساله)</span>
-        </Title>
+      {!dashboard?.length ? (
+        <>
+          <Skeleton height={height} width={"100%"} />
+          <Skeleton height={height} width={"100%"} />
+        </>
+      ) : (
+        <>
+          <ChartWrapper>
+            <Title>
+              بیشترین مکان‌های بازدید شده{" "}
+              <span>(دوره یکساله - ۱۰ مورد بیشتر)</span>
+            </Title>
 
-        {renderBar}
-      </ChartWrapper>
+            {renderLineChart}
+          </ChartWrapper>
+
+          <ChartWrapper>
+            <Title>
+              بیشترین مکان‌های بازدید سراب گیان
+              <span>(دوره یکساله)</span>
+            </Title>
+
+            {renderBar}
+          </ChartWrapper>
+        </>
+      )}
     </Wrapper>
   );
 };
