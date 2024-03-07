@@ -53,18 +53,20 @@ const DetailWrapper = styled.div`
   flex-wrap: wrap;
   align-items: center;
   margin-right: 1rem;
+  padding: 0.5rem;
+  font-size: 14px;
 `;
 
 const Label = styled.label`
-  color: ${Color.grayDark};
+  color: ${Color.gray50};
   margin-left: 0.5rem;
-  flex: 0 0 5rem;
+  flex: 0 0 4rem;
 `;
 const InfoWrapper = styled.div`
   flex: 0 0 33%;
   display: flex;
   align-items: center;
-
+  margin: 0.25rem 0;
   &:last-child {
     flex: 0 0 100%;
   }

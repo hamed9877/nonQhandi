@@ -173,7 +173,7 @@ export const firstData: UserData = {
 };
 export default function Home({}) {
   const pathname = usePathname();
-  const [userData, setUserData] = useLocalStorage("data", firstData);
+  const [userData, setUserData, isLoading] = useLocalStorage("data", firstData);
 
   return pathname === "/login" ? (
     <Login />
@@ -181,7 +181,7 @@ export default function Home({}) {
     <>
       <PageHeader title="کدهای QRC" buttonLabel="افزودن کد" />
       <Wrapper>
-        {!userData.qrc?.length ? (
+        {isLoading ? (
           <>
             <Skeleton width={"100%"} height={300} />
             <Skeleton width={"100%"} height={300} />

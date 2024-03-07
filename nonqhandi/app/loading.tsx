@@ -4,10 +4,10 @@ import styled, { keyframes } from "styled-components";
 // Keyframe animation for the spinner
 const spinAnimation = keyframes`
   0% {
-    box-shadow: 0 24px 0 -24px #7766a798;
+    box-shadow: 0 24px 0 -24px #66a76e97;
   }
   100% {
-    box-shadow: 0 24px 0 #7766a78d;
+    box-shadow: 0 24px 0 #66a76f8d;
   }
 `;
 
@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   transition: all 0.3s ease;
   visibility: hidden;
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
 
   display: flex;

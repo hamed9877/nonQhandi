@@ -97,7 +97,7 @@ const AddQrcCard = () => {
   const [userData, setUserData] = useLocalStorage("data");
   return (
     <form
-      style={{ flex: 1, padding: "0 1rem" }}
+      style={{ width: "100%", height: "100%", padding: "0 1rem" }}
       onSubmit={handleSubmit((data) => {
         data = {
           ...data,
@@ -125,7 +125,7 @@ const AddQrcCard = () => {
           <InputCode {...register("subject")} type="text" placeholder="موضوع" />
           <InputCode {...register("tag")} type="text" placeholder="تگ" />
           <InputCode {...register("organ")} type="text" placeholder="مرکز" />
-          <InputCode {...register("address")} type="text" placeholder="آدرس" />
+          <Textarea {...register("address")} placeholder="آدرس" />
         </FormWrapper>
         <Contanter>
           <MapContainer
@@ -145,11 +145,14 @@ const AddQrcCard = () => {
           </MapContainer>
         </Contanter>
       </CreatCode>
+
       <MainContent>
         <TextInput>
-          <h1>توضیحات</h1>
-          <RichText {...register("explain")}></RichText>
-          <Textarea></Textarea>
+          <h3>توضیحات</h3>
+          <RichText
+            style={{ height: "100%", marginTop: 16 }}
+            {...register("explain")}
+          />
         </TextInput>
         <FilesWrapper>
           <Files>
@@ -207,7 +210,7 @@ const AddQrcCard = () => {
           </UploadFile>
           <Button
             type="submit"
-            bg={Color.secondary}
+            bg={Color.Primary}
             width="100%"
             radius=".5rem"
             margin="1rem 0 0 0"
@@ -241,23 +244,28 @@ const CreatCode = styled.div`
 `;
 
 const FormWrapper = styled.div`
+  display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 
-  padding: 1rem;
+  margin-left: 1rem;
 `;
 
 const InputCode = styled(Input)`
-  flex: 0 0 46%;
+  /* flex: 0 0 48%%; */
+  width: 49%;
 
   background-color: transparent;
 
-  border-bottom: 1px solid ${Color.grayDark};
-  border-radius: 0;
+  border: none;
+  border: 1px solid ${Color.gray};
+
+  border-radius: 0.25rem;
 
   margin: 0;
 
-  height: 2rem;
+  height: 2.5rem;
+  margin-bottom: 0.5rem;
 
   &::placeholder {
     color: ${Color.grayDark};
@@ -271,7 +279,7 @@ const MainContent = styled.div`
   display: flex;
   justify-content: space-between;
 
-  margin-top: 1rem;
+  margin-top: 2rem;
 `;
 
 const TextInput = styled.div`
@@ -279,10 +287,12 @@ const TextInput = styled.div`
 `;
 
 const RichText = styled.textarea`
-  height: 48%;
+  height: 100%;
   width: 100%;
   padding: 1rem;
-  border: 1px solid ${Color.grayLight};
+  outline: none;
+  border: none;
+  box-shadow: 0 0 1px ${Color.gray50};
   border-radius: 0.5rem;
   border-top: none;
 
@@ -318,12 +328,14 @@ const FilesWrapper = styled.div`
   flex-direction: column;
 
   flex: 0 0 30%;
+  height: fit-content;
+  margin-top: 2.5rem;
 `;
 const Files = styled.div`
   border: 1px solid ${Color.grayLight};
   border-radius: 0.5rem;
 
-  height: 48%;
+  height: 300px;
 
   overflow-y: scroll;
 
@@ -335,10 +347,10 @@ const FilesHead = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: ${Color.background};
+  background-color: ${Color.gray};
 
-  border: 1px dashed ${Color.secondary};
-  border-radius: 0.5rem;
+  /* border: 1px dashed ${Color.secondary}; */
+  border-radius: 0.5rem 0.5rem 0 0;
 
   padding: 0.5rem;
 
@@ -395,7 +407,7 @@ const UploadFile = styled.div`
   width: 100%;
   height: 32%;
 
-  border: 1px dashed ${Color.grayDark};
+  border: 1px dashed ${Color.grayLight};
   border-radius: 0.5rem;
 
   margin-top: 1rem;

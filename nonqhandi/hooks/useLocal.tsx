@@ -5,16 +5,23 @@ import { useEffect, useState } from "react";
 // Define an interface to represent the structure of your data
 
 const useLocalStorage = (key: string, initialValue?: UserData) => {
-  const [value, setValue] = useState<UserData>(initialValue);
+  const [value, setValue] = useState<UserData>({
+    qrc: [],
+    dashboard: [],
+    user: [],
+  });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (key && localStorage.getItem(key)) {
+    if (localStorage.getItem(key)) {
       setValue(JSON.parse(localStorage.getItem(key)));
-      console.log("omaaade");
     }
-    if (key && initialValue && !localStorage.getItem(key))
+    if (key && initialValue && !localStorage.getItem(key)) {
       localStorage.setItem(key, JSON.stringify(value));
-      console.log("ooooomaaade");
+      console.log("immmh");
+    }
+
+    setIsLoading(false);
   }, []);
 
   const setLocalStorageValue = (nestedKeyPath: string, newValue: any) => {
@@ -37,7 +44,7 @@ const useLocalStorage = (key: string, initialValue?: UserData) => {
     });
   };
 
-  return [value, setLocalStorageValue] as const;
+  return [value, setLocalStorageValue, isLoading] as const;
 };
 
 export default useLocalStorage;

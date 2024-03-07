@@ -1,3 +1,4 @@
+import Loading from "@/app/loading";
 import useLocalStorage from "@/hooks/useLocal";
 import { useSearchParams } from "next/navigation";
 import QRCode from "qrcode.react";
@@ -25,22 +26,25 @@ const QrcDetailCard = () => {
   };
 
   const [data, setData] = useLocalStorage("data");
-  const qrc = data.qrc.find((d) => d.id == search.get("id"));
+  const qrc = data?.qrc?.find((d) => d.id == search.get("id"));
 
-  return (
+  return !qrc ? (
+    <Loading isLoading />
+  ) : (
     <CardContainer
       index={1}
       border="none!important"
       maxwidth="auto"
       padding="0"
       margin="0"
+      bg="transparent"
+      shadow="unset"
     >
       <QrcDetail>
         <QRCode ref={qrCodeRef} value={"www.google.com"} />
 
         <QrcInfo data={qrc} />
       </QrcDetail>
-
       <MainContent>
         <QuestionWrapper>
           <H2>سوالات</H2>
@@ -160,6 +164,8 @@ const QrcDetail = styled.div`
   border-radius: 0 0.5rem 0.5rem 0;
 
   display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
 
   margin-bottom: 0.5rem;
 `;
@@ -168,6 +174,7 @@ const MainContent = styled.div`
   display: flex;
   width: 100%;
   height: auto;
+  padding: 0.5rem;
 `;
 
 const QuestionWrapper = styled.div`
@@ -177,24 +184,27 @@ const QuestionWrapper = styled.div`
   height: auto;
 `;
 const Questions = styled(MainWrapper)`
-  background-color: #d3e6ca;
+  /* background-color: #d3e6ca; */
   height: auto;
   width: 100%;
 
   padding: 0.5rem;
   margin-top: 0.5rem;
 
-  border: 2px solid ${Color.grayLight};
+  border: 1px solid ${Color.gray};
   border-radius: 0.5rem;
+  height: 100%;
 `;
 
 const FileWrapper = styled.div`
   flex: 0 0 29%;
   margin-right: 1rem;
+  height: fit-content;
 `;
 
 const Images = styled(Questions)`
   margin-bottom: 1rem;
+  border: none;
 `;
 
 const ImgCard = styled.div`

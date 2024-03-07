@@ -26,12 +26,10 @@ const Dashboard: React.FC = () => {
   const width = 1000;
   const height = 300;
 
-  const [data, _] = useLocalStorage("data");
+  const [data, _, isLoading] = useLocalStorage("data");
   const dashboard = data?.dashboard;
 
-  const renderLineChart = !dashboard?.length ? (
-    <Skeleton width={width} height={height} />
-  ) : (
+  const renderLineChart = (
     <AreaChart
       width={width}
       height={height}
@@ -51,9 +49,7 @@ const Dashboard: React.FC = () => {
     </AreaChart>
   );
 
-  const renderBar = !dashboard?.length ? (
-    <Skeleton width={width} height={height} />
-  ) : (
+  const renderBar = (
     <BarChart width={width} height={height} data={dashboard[1]}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" name="hamed" label="" />
@@ -67,7 +63,7 @@ const Dashboard: React.FC = () => {
     <Wrapper>
       {/* <Img width="auto" height="100%" src="./images/dev.jpg" /> */}
 
-      {!dashboard?.length ? (
+      {isLoading ? (
         <>
           <Skeleton height={height} width={"100%"} />
           <Skeleton height={height} width={"100%"} />
