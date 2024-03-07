@@ -6,13 +6,13 @@ import Skeleton from "@/components/Skeleton";
 import { CardBar } from "@/components/card/CardBar";
 import useLocalStorage from "@/hooks/useLocal";
 import {
-  Area,
-  AreaChart,
   Bar,
   BarChart,
   CartesianGrid,
   Cell,
   Legend,
+  Line,
+  LineChart,
   Pie,
   PieChart,
   ResponsiveContainer,
@@ -34,17 +34,94 @@ const Dashboard: React.FC = () => {
   const [data, _, isLoading] = useLocalStorage("data");
   const dashboard = data?.dashboard;
   const ndata = [
-    { name: "مهر", request: "15", amt: "2400" },
-    { name: "آبان", request: "32", amt: "2400" },
-    { name: "آذر", request: "23", amt: "2400" },
-    { name: "دی", request: "42", amt: "2400" },
-    { name: "بهمن", request: "12", amt: "2400" },
-    { name: "اسفند", request: "73", amt: "2400" },
-    { name: "فروردین", request: "45", amt: "2400" },
-    { name: "اردیبهشت", request: "34", amt: "2400" },
+    {
+      name: "فروردین",
+      گنجنامه: 45,
+      "عباس آباد": 34,
+      "سراب گیان": 15,
+      غارعلیصدر: 32,
+    },
+    {
+      name: "اردیبهشت",
+      گنجنامه: 34,
+      "عباس آباد": 34,
+      "سراب گیان": 23,
+      غارعلیصدر: 42,
+    },
+    {
+      name: "خرداد",
+      گنجنامه: 22,
+      "عباس آباد": 25,
+      "سراب گیان": 18,
+      غارعلیصدر: 30,
+    },
+    {
+      name: "تیر",
+      گنجنامه: 17,
+      "عباس آباد": 20,
+      "سراب گیان": 14,
+      غارعلیصدر: 25,
+    },
+    {
+      name: "مرداد",
+      گنجنامه: 37,
+      "عباس آباد": 40,
+      "سراب گیان": 29,
+      غارعلیصدر: 48,
+    },
+    {
+      name: "شهریور",
+      گنجنامه: 29,
+      "عباس آباد": 32,
+      "سراب گیان": 25,
+      غارعلیصدر: 38,
+    },
+    {
+      name: "مهر",
+      گنجنامه: 48,
+      "عباس آباد": 53,
+      "سراب گیان": 39,
+      غارعلیصدر: 62,
+    },
+    {
+      name: "آبان",
+      گنجنامه: 14,
+      "عباس آباد": 15,
+      "سراب گیان": 11,
+      غارعلیصدر: 20,
+    },
+    {
+      name: "آذر",
+      گنجنامه: 82,
+      "عباس آباد": 90,
+      "سراب گیان": 65,
+      غارعلیصدر: 110,
+    },
+    {
+      name: "دی",
+      گنجنامه: 52,
+      "عباس آباد": 45,
+      "سراب گیان": 32,
+      غارعلیصدر: 60,
+    },
+    {
+      name: "بهمن",
+      گنجنامه: 45,
+      "عباس آباد": 38,
+      "سراب گیان": 28,
+      غارعلیصدر: 50,
+    },
+    {
+      name: "اسفند",
+      گنجنامه: 75,
+      "عباس آباد": 60,
+      "سراب گیان": 50,
+      غارعلیصدر: 85,
+    },
   ];
+
   const renderLineChart = (
-    <AreaChart
+    <LineChart
       data={ndata}
       // margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
     >
@@ -52,13 +129,12 @@ const Dashboard: React.FC = () => {
       <XAxis tick={{ fontSize: 10 }} dataKey="name" label="" name="hamed" />
       <YAxis />
       <Tooltip shared />
-      <Area
-        type="monotone"
-        dataKey="request"
-        stroke={Color.secondary}
-        fill={Color.secondary50}
-      />
-    </AreaChart>
+      <Legend />
+      <Line type="monotone" dataKey="گنجنامه" stroke={Color.Secondary} />
+      <Line type="monotone" dataKey="سراب گیان" stroke={Color.grayDark} />
+      <Line type="monotone" dataKey="غارعلیصدر" stroke={Color.Tertiary} />
+      <Line type="monotone" dataKey="عباس آباد" stroke={Color.red} />
+    </LineChart>
   );
   const StackedBarChart = ({}) => {
     const data = [
@@ -97,8 +173,8 @@ const Dashboard: React.FC = () => {
       <div>
         <BarChart
           data={data}
-          height={200}
-          width={300}
+          height={250}
+          width={550}
           margin={{ right: 0, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -127,7 +203,7 @@ const Dashboard: React.FC = () => {
     const COLORS = [Color.secondary, "#82ca9d", Color.Primary];
 
     return (
-      <PieChart margin={{ left: 0, right: 0 }} height={200} width={200}>
+      <PieChart margin={{ left: 0, right: 0 }} height={205} width={205}>
         <Pie
           data={data}
           cx="50%"
@@ -158,6 +234,7 @@ const Dashboard: React.FC = () => {
       <XAxis tick={{ fontSize: 8 }} dataKey="name" name="hamed" label="" />
       <YAxis />
       <Tooltip shared />
+
       <Bar dataKey="request" fill={Color.secondary} />
     </BarChart>
   );
@@ -170,11 +247,10 @@ const Dashboard: React.FC = () => {
           <Skeleton height={300} width={"100%"} />
         </>
       ) : (
-        <Right>
+        <>
           <ChartWrapper>
             <Title>
-              تعداد بازدیدکنندگان گنجنامه{" "}
-              <span>(دوره یکساله - ۱۰ مورد بیشتر)</span>
+              پربازدیدترین مکان‌ها <span>(دوره یکساله )</span>
             </Title>
             <WrapperInner>
               <ResponsiveContainer width="100%" height={200}>
@@ -182,60 +258,34 @@ const Dashboard: React.FC = () => {
               </ResponsiveContainer>
             </WrapperInner>
           </ChartWrapper>
-          <ChartWrapper>
-            <Title>
-              بیشترین مکان‌های بازدید سراب گیان
-              <span>(دوره یکساله)</span>
-            </Title>
-            <WrapperInner>
-              <ResponsiveContainer width="100%" height={200}>
-                {renderBar}
-              </ResponsiveContainer>
-            </WrapperInner>
-          </ChartWrapper>
-        </Right>
-      )}
-      {isLoading ? (
-        <>
-          <Skeleton height={300} width={"100%"} />
-          <Skeleton height={300} width={"100%"} />
-        </>
-      ) : (
-        <Left>
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              flex: 1,
-              margin: "0.5rem 0",
+              display: "grid",
+              gridTemplateColumns: "50% 50%",
+              gridTemplateRows: "50% 50%",
+              gap: 8,
+              padding: 8,
+              margin: 8,
             }}
           >
-            <CardBar
-              Num={32}
-              subTitle="استفاده از پیشنهادات"
-              Color={Color.Primary}
-            />
-            <CardBar
-              Num={45}
-              subTitle="نظرات مثبت امروز"
-              Color={Color.Primary}
-            />
-            <CardBar Num={89} subTitle="هدف درآمدی" Color={Color.Primary} />
+            <Card>
+              <Text>۹۲۲۱ </Text>
+              <SubText>کاربر آنلاین</SubText>
+            </Card>
+            <Card>
+              <Text>۳۲۴۰۱</Text>
+              <SubText>کاربر جدید</SubText>
+            </Card>
+
+            <Card>
+              <Text>۱۷۴۲ </Text>
+              <SubText>گنجنامه </SubText>
+            </Card>
+            <Card>
+              <Text>۲۳۴۱ </Text>
+              <SubText>نظرات امروز </SubText>
+            </Card>
           </div>
-          <ChartWrapper>
-            <ResponsiveContainer width="100%" height={200}>
-              <StackedBarChart />
-            </ResponsiveContainer>
-          </ChartWrapper>
-        </Left>
-      )}
-      {isLoading ? (
-        <>
-          <Skeleton height={300} width={"100%"} />
-          <Skeleton height={300} width={"100%"} />
-        </>
-      ) : (
-        <Left>
           <ChartWrapper>
             <Title>بیشترین مکان‌های بازدید امروز</Title>
             <div
@@ -248,51 +298,75 @@ const Dashboard: React.FC = () => {
               <DoughnutChart />
             </div>
           </ChartWrapper>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              height: "100%",
-              flex: "1",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                flex: "1",
-                alignItems: "center",
-              }}
-            >
-              <Card>
-                <Text>۹۲۲۱ </Text>
-                <SubText>کاربر آنلاین</SubText>
-              </Card>
-              <Card>
-                <Text>۳۲۴۰۱</Text>
-                <SubText>کاربر جدید</SubText>
-              </Card>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flex: "1",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Card>
-                <Text>۱۷۴۲ </Text>
-                <SubText>گنجنامه </SubText>
-              </Card>
-              <Card>
-                <Text>۲۳۴۱ </Text>
-                <SubText>نظرات امروز </SubText>
-              </Card>
-            </div>
-          </div>
-        </Left>
+        </>
       )}
+      {isLoading ? (
+        <>
+          <Skeleton height={300} width={"100%"} />
+          <Skeleton height={300} width={"100%"} />
+        </>
+      ) : (
+        <>
+          <ChartWrapper>
+            <Title>
+              اسکن‌های انجام شده
+              <span>(دوره یکساله)</span>
+            </Title>
+            <WrapperInner>
+              <ResponsiveContainer width="100%" height={200}>
+                {renderBar}
+              </ResponsiveContainer>
+            </WrapperInner>
+          </ChartWrapper>
+        </>
+      )}
+      {isLoading ? (
+        <>
+          <Skeleton height={300} width={"100%"} />
+          <Skeleton height={300} width={"100%"} />
+        </>
+      ) : (
+        <div
+          style={{
+            gridColumn: "2/4",
+          }}
+        >
+          <ChartWrapper>
+            <ResponsiveContainer width="100%" height={200}>
+              <StackedBarChart />
+            </ResponsiveContainer>
+          </ChartWrapper>
+        </div>
+      )}
+      <div
+        style={{
+          display: "flex",
+          // flexDirection: "column",
+          gridColumn: "1/4",
+          flex: 1,
+          margin: "0.5rem 0",
+        }}
+      >
+        {isLoading ? (
+          <>
+            <Skeleton height={"120px"} width={"100%"} />
+          </>
+        ) : (
+          <>
+            <CardBar
+              Num={32}
+              subTitle="استفاده از پیشنهادات"
+              Color={Color.Primary}
+            />
+            <CardBar
+              Num={45}
+              subTitle="نظرات مثبت امروز"
+              Color={Color.Primary}
+            />
+            <CardBar Num={89} subTitle="هدف درآمدی" Color={Color.Primary} />
+          </>
+        )}
+      </div>
     </Wrapper>
   );
 };
@@ -304,10 +378,8 @@ const Card = styled.div`
   flex-direction: column;
   justify-content: center;
   box-shadow: ${Shadow.cardShadow};
-  margin: 0.5rem;
   padding: 1rem;
   height: 100%;
-  flex: 1;
 
   border-radius: 1rem;
   align-items: center;
@@ -318,36 +390,37 @@ const SubText = styled.p`
   color: ${Color.Primary};
 `;
 const Text = styled.p`
-  font-size: 2.2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: ${Color.secondary};
 `;
 const Right = styled.div`
   justify-content: center;
   display: flex;
-  flex: 2;
   flex-direction: column;
 `;
 const Left = styled.div`
-  justify-content: center;
+  justify-content: start;
   display: flex;
   flex-direction: column;
-  flex: 1;
 `;
 const WrapperInner = styled.div`
-  justify-content: center;
+  justify-content: start;
   display: flex;
   align-items: center;
 `;
 const Wrapper = styled.div`
   padding: 1rem;
   margin-top: 2rem;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap;
   display: flex;
-  justify-content: center;
+  justify-content: center; */
   width: 100%;
+  display: grid;
+  grid-template-columns: 50% 23% 23%;
+  gap: 1rem;
+  row-gap: normal;
 
-  gap: 2rem;
   overflow: hidden;
 
   .recharts-wrapper {
@@ -374,16 +447,16 @@ const Wrapper = styled.div`
 const ChartWrapper = styled.div`
   box-shadow: ${Shadow.cardShadow};
   padding: 1rem;
-  min-width: 20rem;
-  flex: 1;
-  margin: 0.5rem 0;
+  margin: 0.5rem;
   border-radius: 1rem;
+  width: 100%;
+  min-height: 15rem;
 `;
 
 const Title = styled.p`
   color: ${Color.grayDark};
   font-size: 18px;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
 
   span {
     color: ${Color.gray50};

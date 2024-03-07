@@ -9,8 +9,11 @@ export const CardBar: React.FC<{
 }> = ({ Color, Num, subTitle }) => {
   return (
     <CardC>
+      <DownCard>
+        <Tit>{subTitle}</Tit>
+      </DownCard>
       <UpCard>
-        <div style={{ flex: 1 }}>
+        <div style={{ marginLeft: 8 }}>
           <PTCard Color={Color}>{Num}%</PTCard>
         </div>
         <BarCard>
@@ -18,15 +21,12 @@ export const CardBar: React.FC<{
           <NActiveCard Num={Num}></NActiveCard>
         </BarCard>
       </UpCard>
-      <DownCard>
-        <Tit>{subTitle}</Tit>
-      </DownCard>
     </CardC>
   );
 };
 const Tit = styled.p`
   font-size: 0.7rem;
-  color: ${Color.gray50};
+  color: ${Color.grayDark};
 `;
 const UpCard = styled.div`
   display: flex;
@@ -58,7 +58,7 @@ const BarCard = styled.div`
   flex: 4;
 `;
 const PTCard = styled.p<{ Color: string }>`
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
   color: ${(p) => p.Color};
 `;
@@ -68,9 +68,9 @@ const CardC = styled.div`
   justify-content: center;
   box-shadow: ${Shadow.cardShadow};
   margin: 0.5rem;
-  padding: 1rem;
-  height: 100%;
-  flex: 1;
+  padding: 0.5rem;
+  height: fit-content;
+  width: 100%;
 
   border-radius: 1rem;
   align-items: center;
