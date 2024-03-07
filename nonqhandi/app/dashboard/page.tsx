@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import Skeleton from "@/components/Skeleton";
 import { CardBar } from "@/components/card/CardBar";
 import useLocalStorage from "@/hooks/useLocal";
 import {
@@ -30,7 +31,8 @@ const Dashboard: React.FC = () => {
 
   const width = 600;
 
-  const [{ dashboard }, _] = useLocalStorage("data");
+  const [data, _, isLoading] = useLocalStorage("data");
+  const dashboard = data?.dashboard;
 
   const renderLineChart = (
     <AreaChart
@@ -153,30 +155,37 @@ const Dashboard: React.FC = () => {
   return (
     <Wrapper>
       {/* <Img width="auto" height="100%" src="./images/dev.jpg" /> */}
-      <Right>
-        <ChartWrapper>
-          <Title>
-            بیشترین مکان‌های بازدید شده{" "}
-            <span>(دوره یکساله - ۱۰ مورد بیشتر)</span>
-          </Title>
-          <WrapperInner>
-            <ResponsiveContainer width="100%" height={200}>
-              {renderLineChart}
-            </ResponsiveContainer>
-          </WrapperInner>
-        </ChartWrapper>
-        <ChartWrapper>
-          <Title>
-            بیشترین مکان‌های بازدید سراب گیان
-            <span>(دوره یکساله)</span>
-          </Title>
-          <WrapperInner>
-            <ResponsiveContainer width="100%" height={200}>
-              {renderBar}
-            </ResponsiveContainer>
-          </WrapperInner>
-        </ChartWrapper>
-      </Right>
+      {isLoading ? (
+        <>
+          <Skeleton height={300} width={"100%"} />
+          <Skeleton height={300} width={"100%"} />
+        </>
+      ) : (
+        <Right>
+          <ChartWrapper>
+            <Title>
+              بیشترین مکان‌های بازدید شده{" "}
+              <span>(دوره یکساله - ۱۰ مورد بیشتر)</span>
+            </Title>
+            <WrapperInner>
+              <ResponsiveContainer width="100%" height={200}>
+                {renderLineChart}
+              </ResponsiveContainer>
+            </WrapperInner>
+          </ChartWrapper>
+          <ChartWrapper>
+            <Title>
+              بیشترین مکان‌های بازدید سراب گیان
+              <span>(دوره یکساله)</span>
+            </Title>
+            <WrapperInner>
+              <ResponsiveContainer width="100%" height={200}>
+                {renderBar}
+              </ResponsiveContainer>
+            </WrapperInner>
+          </ChartWrapper>
+        </Right>
+      )}
       <Left>
         <div
           style={{

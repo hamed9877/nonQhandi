@@ -39,11 +39,10 @@ export const CardContainer = styled.div<IProps>`
   align-items: ${({ align }) => align || "flex-start"};
 
   border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: 0px 0px 14px #08080817;
+  box-shadow: ${({ shadow }) => shadow || "0px 0px 14px #08080817"};
 
   height: ${({ height }) => height || "100%"};
-  min-height: ${({ small }) => (small ? "80%" : "")};
+  min-height: ${({ small }) => (small ? "80%" : "unset")};
   width: ${({ width }) => width || "100%"};
 
   position: relative;

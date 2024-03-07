@@ -19,6 +19,7 @@ export const Card: React.FC<{
   Idata: IDetail;
   barcode: string;
 }> = ({ index, Idata, onClick, barcode }) => {
+  const lo = window?.location?.host ?? "";
   return (
     <CardContainer index={index} height="auto">
       <ToggleBtn />
@@ -38,7 +39,7 @@ export const Card: React.FC<{
           <Qr>
             <QRCodeReact
               style={{ width: "100%", height: "100%" }}
-              value={"http://localhost:3000/landing/detail?id=" + barcode}
+              value={`${lo}/landing/detail?id=` + barcode}
             />
           </Qr>
         </CardDetail>
