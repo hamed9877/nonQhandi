@@ -371,7 +371,7 @@ const Sujest = styled.div`
   align-items: center;
   flex-direction: column;
 
-  padding: 1rem;
+  padding: 0rem;
 `;
 const CInput = styled(Input)`
   width: 100%;
@@ -446,6 +446,7 @@ const HeaderItem = styled.h4`
 const Contain = styled.div`
   display: flex;
   width: 100%;
+  gap: 1rem;
   padding: 1rem;
   @media screen and (max-width: 640px) {
     flex-direction: column;
@@ -457,8 +458,8 @@ const RightR = styled.div`
 `;
 const LeftR = styled.div`
   flex: 1;
-  height: 20rem;
-  padding: 0 1rem;
+  /* height: 20rem; */
+  padding: 0rem;
 `;
 const HeaderNews = styled.h2`
   padding: 1rem;

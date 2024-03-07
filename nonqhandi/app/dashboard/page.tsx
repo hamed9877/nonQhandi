@@ -419,7 +419,7 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 50% 23% 23%;
   gap: 1rem;
-  row-gap: normal;
+  row-gap: 0.5rem;
 
   overflow: hidden;
 

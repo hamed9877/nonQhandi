@@ -11,6 +11,7 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import styled from "styled-components";
 import { Routing } from "../../components/routing/routing";
 import { tsp } from "../../function/tsp/tsp";
+import { Legend } from "chart.js";
 
 const MapTest = ({ itemMap }) => {
   const markerRef = useRef(new Array());
@@ -90,7 +91,10 @@ const MapTest = ({ itemMap }) => {
         ></CircleMarker> */}
       </MapContainer>
       <SelectSpace>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div
+          style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}
+        >
+          {/* <Legend /> */}
           <input
             onClick={() => setRadio("trafic")}
             type="radio"
