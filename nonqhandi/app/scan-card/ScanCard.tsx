@@ -12,10 +12,12 @@ const QRCodeReader = () => {
   const handleScan = (data: any) => {
     if (data) {
       setResult(data);
+      alert(data);
+      router.push(data);
     }
-    if (result !== "No result") {
-      router.push("/landing/detail");
-    }
+    // if (result !== "No result") {
+    //   router.push("/landing/detail");
+    // }
   };
 
   const handleError = (err: any) => {

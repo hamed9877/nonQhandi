@@ -22,6 +22,7 @@ const Login: React.FC = () => {
   return (
     <Page>
       <LogoBar size="10rem" />
+
       <Container>
         <P color={Color.secondary}>ورود | ثبت‌نام</P>
         <P color={Color.grayDark} fs=".825rem" margin="1rem 0 0 0 ">
@@ -68,6 +69,7 @@ const Container = styled.div`
     align-items: center;
     width: 100%;
     margin: 0;
+    margin-top: 4rem;
     /* margin-top: 50%; */
     /* transform: translateY(-40%); */
     /* max-width: 360px; */

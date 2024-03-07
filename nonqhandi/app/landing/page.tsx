@@ -1,4 +1,5 @@
 "use client";
+import Skeleton from "@/components/Skeleton";
 import { LanpageCardRecom } from "@/components/card/LanpageCardRecom";
 import { itemMaps } from "@/function/fackData/fackData";
 import useLocalStorage from "@/hooks/useLocal";
@@ -108,34 +109,40 @@ const Landing = () => {
   const [data, setData] = useState();
   const [tsp, setTsp] = useState(0);
   const router = useRouter();
-  const [userData, setUserData] = useLocalStorage("data", firstData);
+  const [userData, setUserData, isLoading] = useLocalStorage("data", firstData);
   return (
     <Wrapper>
       <SliderWrapper>
-        <Slide autoplay duration={1000} arrows={false}>
-          {slideImages.map((slideImage, index) => (
-            <div key={index}>
-              <div
-                style={{
-                  ...divStyle,
-                  backgroundImage: `url(${slideImage.url})`,
-                  backgroundSize: "cover",
-                }}
-              >
-                <div
-                  style={{
-                    background:
-                      "linear-gradient(360deg, #000000db, transparent)",
-                    width: "",
-                  }}
-                >
-                  <p style={spanStyle}>{slideImage.caption}</p>
-                  <p style={spanStyle1}>{slideImage.comment}</p>
+        {isLoading ? (
+          <Skeleton width="100%" height={"540px"} />
+        ) : (
+          <>
+            <Slide autoplay duration={1000} arrows={false}>
+              {slideImages.map((slideImage, index) => (
+                <div key={index}>
+                  <div
+                    style={{
+                      ...divStyle,
+                      backgroundImage: `url(${slideImage.url})`,
+                      backgroundSize: "cover",
+                    }}
+                  >
+                    <div
+                      style={{
+                        background:
+                          "linear-gradient(360deg, #000000db, transparent)",
+                        width: "",
+                      }}
+                    >
+                      <p style={spanStyle}>{slideImage.caption}</p>
+                      <p style={spanStyle1}>{slideImage.comment}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </Slide>
+              ))}
+            </Slide>
+          </>
+        )}
       </SliderWrapper>
       <Content>
         <HeaderLanPage>به همدان خوش آمدید</HeaderLanPage>

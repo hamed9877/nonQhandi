@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 import { Color } from "../../styles/global/Color";
@@ -34,7 +35,7 @@ export const GuestNav: React.FC<INav> = ({ active }) => {
           hoverColor={Color.secondary}
           fs="white"
         >
-          <a href="/login">ورود</a>
+          <Link href="/login">ورود</Link>
         </Button>
       </ButtonWrapper>
     </Navbar>

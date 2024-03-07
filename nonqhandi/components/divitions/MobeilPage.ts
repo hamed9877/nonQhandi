@@ -9,7 +9,7 @@ export const Page = styled.section`
   height: 100%;
   overflow: hidden;
   padding: 1rem;
-  & a {
+  & > a {
     margin-bottom: 4rem;
     margin-top: 6rem;
   }

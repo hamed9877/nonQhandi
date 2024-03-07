@@ -15,14 +15,13 @@ const useLocalStorage = (key: string, initialValue?: UserData) => {
   useEffect(() => {
     if (localStorage.getItem(key)) {
       setValue(JSON.parse(localStorage.getItem(key)));
-    }
-    if (key && initialValue && !localStorage.getItem(key)) {
-      localStorage.setItem(key, JSON.stringify(value));
-      console.log("immmh");
+    } else if (key && initialValue && !localStorage.getItem(key)) {
+      localStorage.setItem(key, JSON.stringify(initialValue));
+      setValue(initialValue);
     }
 
     setIsLoading(false);
-  }, []);
+  }, [initialValue, key]);
 
   const setLocalStorageValue = (nestedKeyPath: string, newValue: any) => {
     setValue((prevValue) => {

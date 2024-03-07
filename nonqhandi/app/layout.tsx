@@ -8,10 +8,11 @@ import { usePathname } from "next/navigation";
 
 import { QrcFillter } from "@/components/fillters/QrcFilter";
 import useDeviceType from "@/hooks/useDeviceType";
+import useLocalStorage from "@/hooks/useLocal";
 import { LayoutSize } from "@/interface/LayoutSize";
 import { Path } from "@/routes/Path";
-import { useEffect, useState } from "react";
 import "../styles/globals.css";
+import { firstData } from "./page";
 import StyledComponentsRegistry from "./registry";
 
 export default function RootLayout({
@@ -22,17 +23,10 @@ export default function RootLayout({
   pageProps: LayoutSize;
 }) {
   const pathname = usePathname();
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-
-    return () => clearTimeout(timeoutId);
-  }, []);
   const { isMobile } = useDeviceType();
 
+  useLocalStorage("data", firstData);
   return (
     <html lang="en">
       <head>

@@ -8,6 +8,7 @@ import { Button } from "../buttons/Button";
 import { Input } from "../inputs/Input";
 import { TextArea } from "../inputs/TextArea";
 import { CardContainer } from "./CardContainer";
+import { firstData } from "@/app/page";
 
 interface Props {
   title: string;
@@ -28,7 +29,7 @@ export const Comment: React.FC<Props> = ({ data, title }) => {
   const search = useSearchParams();
   const id = search.get("id");
 
-  const [{ qrc }, setData] = useLocalStorage("data");
+  const [{ qrc }, setData] = useLocalStorage("data", firstData);
   const qrcData = qrc.find(({ id: _id }) => _id === id);
 
   return (

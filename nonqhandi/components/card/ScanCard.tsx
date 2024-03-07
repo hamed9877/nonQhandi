@@ -12,7 +12,7 @@ const QRCodeReader = () => {
   const handleScan = (data) => {
     if (data) {
       setResult(data);
-      router.push("/");
+      router.push(data);
     }
     if (result !== "No result") {
       router.push("/landing/detail");

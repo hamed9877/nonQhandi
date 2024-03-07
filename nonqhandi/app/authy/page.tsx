@@ -22,6 +22,7 @@ const Authy: React.FC = () => {
   const router = useRouter();
   const [error, setError] = useState(false);
 
+  const phone = search.get("phone");
   return (
     <Page>
       <Container>
@@ -36,8 +37,8 @@ const Authy: React.FC = () => {
             const user = JSON.parse(localStorage.getItem("data")).user.filter(
               (va) => va.phone == search.get("phone")
             );
-            if (data.code == "1111" && user.length != 0) {
-              user[0].role == "Expert"
+            if (data.code == "1111" && phone) {
+              phone == "09183152961"
                 ? router.push("/expert")
                 : router.push("/dashboard");
             } else {

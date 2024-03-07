@@ -1,5 +1,5 @@
 "use client";
-import useLocalStorage from "@/hooks/useLocal";
+import { firstData } from "@/app/page";
 import { FaLocationDot, FaTags } from "react-icons/fa6";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
@@ -55,7 +55,7 @@ const divStyle1 = {
   height: "30rem",
 };
 const AddCountry = () => {
-  const [{ qrc }, _] = useLocalStorage("data");
+  const qrc = firstData.qrc;
   return (
     <Wrapper>
       <HeaderDetail>معرفی مکان تفریحی</HeaderDetail>
