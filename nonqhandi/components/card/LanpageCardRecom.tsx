@@ -17,7 +17,12 @@ export const LanpageCardRecom: React.FC<Props> = ({
       <ContainImage src={imageSrc} />
       {text.map((val) => {
         return (
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             {val.map((t) => (
               <Text>{t}</Text>
             ))}
@@ -30,7 +35,6 @@ export const LanpageCardRecom: React.FC<Props> = ({
 const Text = styled.p`
   padding: 0.3rem;
   font-size: 0.7rem;
-  white-space: nowrap;
   font-weight: lighter;
 `;
 const ContainImage = styled.img`
@@ -45,7 +49,7 @@ const ContainImage = styled.img`
 const CardContainerr = styled(CardContainer)`
   border-radius: 0.5rem;
   display: flex;
-  height: 6rem;
+  height: 7rem;
   flex-direction: row;
   padding: 0.4rem;
   box-shadow: ${Shadow.cardShadow};
