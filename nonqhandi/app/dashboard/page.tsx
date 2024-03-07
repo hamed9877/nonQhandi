@@ -33,10 +33,19 @@ const Dashboard: React.FC = () => {
 
   const [data, _, isLoading] = useLocalStorage("data");
   const dashboard = data?.dashboard;
-
+  const ndata = [
+    { name: "مهر", request: "15", amt: "2400" },
+    { name: "آبان", request: "32", amt: "2400" },
+    { name: "آذر", request: "23", amt: "2400" },
+    { name: "دی", request: "42", amt: "2400" },
+    { name: "بهمن", request: "12", amt: "2400" },
+    { name: "اسفند", request: "73", amt: "2400" },
+    { name: "فروردین", request: "45", amt: "2400" },
+    { name: "اردیبهشت", request: "34", amt: "2400" },
+  ];
   const renderLineChart = (
     <AreaChart
-      data={dashboard[0]}
+      data={ndata}
       // margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
     >
       <CartesianGrid strokeDasharray="3 3" />
@@ -164,7 +173,7 @@ const Dashboard: React.FC = () => {
         <Right>
           <ChartWrapper>
             <Title>
-              بیشترین مکان‌های بازدید شده{" "}
+              تعداد بازدیدکنندگان گنجنامه{" "}
               <span>(دوره یکساله - ۱۰ مورد بیشتر)</span>
             </Title>
             <WrapperInner>
@@ -186,86 +195,104 @@ const Dashboard: React.FC = () => {
           </ChartWrapper>
         </Right>
       )}
-      <Left>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            flex: 1,
-            margin: "0.5rem 0",
-          }}
-        >
-          <CardBar
-            Num={32}
-            subTitle="استفاده از پیشنهادات"
-            Color={Color.Primary}
-          />
-          <CardBar Num={45} subTitle="نظرات مثبت امروز" Color={Color.Primary} />
-          <CardBar Num={89} subTitle="هدف درآمدی" Color={Color.Primary} />
-        </div>
-        <ChartWrapper>
-          <ResponsiveContainer width="100%" height={200}>
-            <StackedBarChart />
-          </ResponsiveContainer>
-        </ChartWrapper>
-      </Left>
-      <Left>
-        <ChartWrapper>
-          <Title>بیشترین مکان‌های بازدید امروز</Title>
+      {isLoading ? (
+        <>
+          <Skeleton height={300} width={"100%"} />
+          <Skeleton height={300} width={"100%"} />
+        </>
+      ) : (
+        <Left>
           <div
             style={{
               display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              flexDirection: "column",
+              flex: 1,
+              margin: "0.5rem 0",
             }}
           >
-            <DoughnutChart />
+            <CardBar
+              Num={32}
+              subTitle="استفاده از پیشنهادات"
+              Color={Color.Primary}
+            />
+            <CardBar
+              Num={45}
+              subTitle="نظرات مثبت امروز"
+              Color={Color.Primary}
+            />
+            <CardBar Num={89} subTitle="هدف درآمدی" Color={Color.Primary} />
           </div>
-        </ChartWrapper>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            height: "100%",
-            flex: "1",
-          }}
-        >
+          <ChartWrapper>
+            <ResponsiveContainer width="100%" height={200}>
+              <StackedBarChart />
+            </ResponsiveContainer>
+          </ChartWrapper>
+        </Left>
+      )}
+      {isLoading ? (
+        <>
+          <Skeleton height={300} width={"100%"} />
+          <Skeleton height={300} width={"100%"} />
+        </>
+      ) : (
+        <Left>
+          <ChartWrapper>
+            <Title>بیشترین مکان‌های بازدید امروز</Title>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <DoughnutChart />
+            </div>
+          </ChartWrapper>
           <div
             style={{
               display: "flex",
-              justifyContent: "center",
+              flexDirection: "column",
+              height: "100%",
               flex: "1",
-              alignItems: "center",
             }}
           >
-            <Card>
-              <Text>۹۲۲۱ </Text>
-              <SubText>کاربر آنلاین</SubText>
-            </Card>
-            <Card>
-              <Text>۳۲۴۰۱</Text>
-              <SubText>کاربر جدید</SubText>
-            </Card>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                flex: "1",
+                alignItems: "center",
+              }}
+            >
+              <Card>
+                <Text>۹۲۲۱ </Text>
+                <SubText>کاربر آنلاین</SubText>
+              </Card>
+              <Card>
+                <Text>۳۲۴۰۱</Text>
+                <SubText>کاربر جدید</SubText>
+              </Card>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flex: "1",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Card>
+                <Text>۱۷۴۲ </Text>
+                <SubText>گنجنامه </SubText>
+              </Card>
+              <Card>
+                <Text>۲۳۴۱ </Text>
+                <SubText>نظرات امروز </SubText>
+              </Card>
+            </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flex: "1",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Card>
-              <Text>۱۷۴۲ </Text>
-              <SubText>گنجنامه </SubText>
-            </Card>
-            <Card>
-              <Text>۲۳۴۱ </Text>
-              <SubText>نظرات امروز </SubText>
-            </Card>
-          </div>
-        </div>
-      </Left>
+        </Left>
+      )}
     </Wrapper>
   );
 };
