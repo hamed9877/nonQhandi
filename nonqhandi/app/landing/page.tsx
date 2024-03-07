@@ -224,15 +224,14 @@ const Landing = () => {
 
                 if (data.text && data.text.includes("رستوران")) {
                   setData(dataFake[0].r);
-                }
-                if (data.text && data.text.includes("آدرس")) {
+                } else if (data.text && data.text.includes("آدرس")) {
                   setData(dataFake[1].r);
-                }
-                if (data.text && data.text.includes("الان")) {
+                } else if (data.text && data.text.includes("الان")) {
                   setData(dataFake[2].r);
-                }
-                if (data.text && data.text.includes("بهترین")) {
+                } else if (data.text && data.text.includes("بهترین")) {
                   setData(dataFake[3].r);
+                } else {
+                  setData("در حال یادگیری هستم ");
                 }
               })}
               style={{
